@@ -1,11 +1,20 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import GameTitle from '@/components/GameTitle.vue';
+import GameWheel from './components/GameWheel/GameWheel.vue';
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <main class="main">
+    <GameTitle />
+    <GameWheel />
+  </main>
 </template>
 
-<style scoped></style>
+<style lang="css" scoped>
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: min(100px, 12vmax);
+}
+</style>
