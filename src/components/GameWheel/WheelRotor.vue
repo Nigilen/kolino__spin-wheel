@@ -76,6 +76,7 @@ watch(() => props.isSpin, (isSpin) => {
   block-size: auto;
   aspect-ratio: 1 / 1;
   overflow: hidden;
+  animation: rotorDance 3s ease-in-out infinite;
 
   & .rotor__dividiers {
     display: flex;
@@ -98,6 +99,18 @@ watch(() => props.isSpin, (isSpin) => {
       block-size: 50%;
       aspect-ratio: 0.77 / 1;
     }
+  }
+}
+
+@keyframes rotorDance {
+  0% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(-5deg);
   }
 }
 
