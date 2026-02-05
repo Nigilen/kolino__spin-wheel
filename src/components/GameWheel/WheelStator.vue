@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { data } from '@/components/GameWheel/data';
 
+const props = defineProps<{
+  isSpin: boolean;
+}>();
+
 const emits = defineEmits<{
   (e: 'spin'): void;
 }>();
@@ -31,7 +35,12 @@ const handleClick = () => {
         loading="lazy"
       >
     </picture>
-    <button class="stator__center" type="button" @click="handleClick">{{ data.wheel.button }}</button>
+    <button 
+      class="stator__center" 
+      type="button" 
+      :disabled="props.isSpin"
+      @click="handleClick"
+    >{{ data.wheel.button }}</button>
   </div>
 </template>
 
@@ -65,7 +74,7 @@ const handleClick = () => {
   & .stator__center {
     position: absolute;
     align-self: center;
-    inline-size: 16cqi;
+    inline-size: 20cqi;
     block-size: auto;
     aspect-ratio: 1 / 1;
     background-color: var(--accent-color);
@@ -74,6 +83,33 @@ const handleClick = () => {
     border-radius: 100%;
     text-transform: uppercase;
     font-size: 4cqi;
+    animation: buttonDance 1s ease-in-out infinite;
+    transition-duration: .3s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+    &:disabled {
+      transform: scale(0.9);
+      cursor: not-allowed;
+      filter: grayscale(1);
+    }
   }
 }
+
+@keyframes buttonDance {
+  0% {
+    background-color: var(--accent-color);
+  }
+  50% {
+    background-color: tomato;
+  }
+  100% {
+    background-color: var(--accent-color);
+  }
+}
+
 </style>

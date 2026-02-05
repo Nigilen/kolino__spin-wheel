@@ -72,6 +72,11 @@ const handleModalClose = () => {
   border-radius: 0.5cqmin;
   color: var(--secondary-color);
   border: min(2px, 0.6cqi) solid #333;
+  transition-duration: .3s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .v-enter-active, .v-leave-active {
