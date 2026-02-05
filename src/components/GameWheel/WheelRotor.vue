@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { onMounted, ref, watch } from 'vue';
 import RotorSector from './RotorSector.vue';
 import { data } from '@/components/GameWheel/data';
 
@@ -6,23 +7,60 @@ const props = defineProps<{
   isSpin: boolean;
 }>();
 
+const emits = defineEmits<{
+  (e: 'spinFinished', winSector: number): void;
+}>();
+
+const rotorRef = ref<HTMLDivElement | null>(null);
+const currentAnimation = ref<Animation | null>(null);
+
+const randomSector = ref<number>(0);
+
+watch(() => props.isSpin, (isSpin) => {
+  if (!rotorRef.value) return;
+  
+  if (isSpin) {
+    
+    if (!currentAnimation.value) {
+      randomSector.value = Math.ceil(Math.random() * (data.wheel.sectorsValue.bonuses.length));
+      console.log(randomSector.value)
+
+      currentAnimation.value = rotorRef.value.animate([
+        { transform: 'rotate(0deg)' },
+        { transform: `rotate(${(randomSector.value * 45) + (360 * 5) }deg)` }
+      ], {
+        duration: 5000,
+        easing: 'cubic-bezier(0.57,0.15,0.54,1.13)',
+        fill: 'forwards'
+      });
+      currentAnimation.value.onfinish = () => {
+        emits('spinFinished', randomSector.value)
+      };
+    }
+  } else {
+    currentAnimation.value?.cancel();
+    currentAnimation.value = null;
+  }
+});
+
 </script>
 
 <template>
-  <div class="rotor" :class="{['spining']: props.isSpin}">
+  <div class="rotor" ref="rotorRef">
     <picture class="rotor__dividiers">
       <img class="rotor__dividiers-img" src="/src/assets/images/wheel__dividiers.svg" alt="" width="441" height="441">
     </picture>
     <ul class="rotor__sectors-list">
       <li 
         class="rotor__sector-item" 
-        v-for="i in data.wheel.sectorsCount" 
+        v-for="i in data.wheel.sectorsValue.bonuses.length" 
         :key="i" 
-        :style="{ '--angle': i * 45 + 'deg' }"
+        :style="{ '--angle': -i * 45 + 'deg' }"
       >
         <RotorSector 
           :src="i % 2 ? '/src/assets/images/wheel__sector--grey.svg' : '/src/assets/images/wheel__sector--white.svg'" 
           :value="data.wheel.sectorsValue.bonuses[i - 1]!"
+          :fontSize="i % 2 ? '1.5' : '1.1'"
         />
       </li>
     </ul>
@@ -63,22 +101,4 @@ const props = defineProps<{
   }
 }
 
-.spining {
-  animation: spin 2s ease-in-out forwards;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  90% {
-    transform: rotate(1810deg);
-  }
-  95% {
-    transform: rotate(1790deg);
-  }
-  100% {
-    transform: rotate(1800deg);
-  }
-}
 </style>

@@ -20,12 +20,12 @@ export const data: Data = {
     button: 'Spin',
     sectorsCount: 8,
     sectorsValue: {
-      bonuses: ['2000', 'Empty', '50', 'Spin Again', '100', 'Empty', '150', 'Spin Again']
+      bonuses: ['2000', 'Empty', '50', 'Repeat', '100', 'Empty', '150', 'Repeat']
     }
   },
   modal: {
-    title: 'You Win',
+    title: 'Your prize',
     bonus: 'none',
-    button: 'Collect'
+    button: 'Ok'
   }
 };

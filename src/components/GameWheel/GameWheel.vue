@@ -3,16 +3,30 @@ import { ref } from 'vue';
 import WheelRotor from './WheelRotor.vue';
 import WheelStator from './WheelStator.vue';
 
-const isSpin = ref(false);
+const props = defineProps<{
+  isSpin: boolean;
+}>();
+
+const emits = defineEmits<{
+  (e: 'spinStart'): void;
+  (e: 'spinFinished', winSector: number): void;
+}>();
+
+
 const handleSpin = () => {
-  isSpin.value = true;
+  emits('spinStart');
 }
+
+const handleSpinFinished = (winSector: number) => {
+  emits('spinFinished', winSector);
+}
+
 </script>
 
 <template>
   <section class="wheel">
     <WheelStator @spin="handleSpin" />
-    <WheelRotor :isSpin="isSpin" />
+    <WheelRotor :isSpin="isSpin" @spinFinished="(winSector) => handleSpinFinished(winSector)"  />
   </section>
 </template>
 
