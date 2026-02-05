@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 const props = defineProps<{
   src: string,
-  value: string
+  value: string,
+  fontSize: string
 }>();
 </script>
 
@@ -10,7 +11,7 @@ const props = defineProps<{
     <picture class="sector__img">
       <img class="sector-img" :src="props.src" alt="" width="154" height="200">
     </picture>
-    <figcaption class="sector__caption">{{ props.value }}</figcaption>
+    <figcaption class="sector__caption" :style="{'--fontSizeMultiplier': props.fontSize}">{{ props.value }}</figcaption>
   </figure>
 </template>
 
@@ -31,11 +32,13 @@ const props = defineProps<{
 
   & .sector__caption {
     position: absolute;
-    inset-block-start: 7cqi;
-    font-size: 4.8cqi;
+    inset-block-start: 12cqi;
+    font-size: calc(4.8cqi * var(--fontSizeMultiplier));
     text-transform: uppercase;
     text-align: center;
     max-width: 20cqi;
+    margin: 0;
+    line-height: 0;
   }
 }
 </style>
