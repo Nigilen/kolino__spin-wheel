@@ -25,7 +25,7 @@ const handleSpinFinished = (winSector: number) => {
 
 <template>
   <section class="wheel">
-    <WheelStator @spin="handleSpin" />
+    <WheelStator @spin="handleSpin" :isSpin="isSpin" />
     <WheelRotor :isSpin="isSpin" @spinFinished="(winSector) => handleSpinFinished(winSector)"  />
   </section>
 </template>
