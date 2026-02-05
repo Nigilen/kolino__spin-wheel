@@ -17,7 +17,6 @@ const handleOpenModal = (winSector: number) => {
   console.log(winSector)
   isOpenModal.value = true;
   winValue.value = data.wheel.sectorsValue.bonuses[winSector - 1];
-  console.log()
 };
 
 const handleCloseModal = () => {
