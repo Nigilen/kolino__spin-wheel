@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import { onMounted, ref, watch } from 'vue';
-import RotorSector from './RotorSector.vue';
+import { ref, watch } from 'vue';
+import RotorSector from '@/components/GameWheel/RotorSector.vue';
 import { data } from '@/components/GameWheel/data';
+import sectorWhite from '@/assets/images/wheel__sector--white.svg';
+import sectorGrey from '@/assets/images/wheel__sector--grey.svg';
 
 const props = defineProps<{
   isSpin: boolean;
@@ -57,7 +59,7 @@ watch(() => props.isSpin, (isSpin) => {
         :style="{ '--angle': -i * 45 + 'deg' }"
       >
         <RotorSector 
-          :src="i % 2 ? '/src/assets/images/wheel__sector--grey.svg' : '/src/assets/images/wheel__sector--white.svg'" 
+          :src="i % 2 ? sectorGrey : sectorWhite" 
           :value="data.wheel.sectorsValue.bonuses[i - 1]!"
           :fontSize="i % 2 ? '1.5' : '1.1'"
         />
