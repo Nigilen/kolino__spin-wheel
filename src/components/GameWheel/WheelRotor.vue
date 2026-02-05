@@ -23,7 +23,6 @@ watch(() => props.isSpin, (isSpin) => {
     
     if (!currentAnimation.value) {
       randomSector.value = Math.ceil(Math.random() * (data.wheel.sectorsValue.bonuses.length));
-      console.log(randomSector.value)
 
       currentAnimation.value = rotorRef.value.animate([
         { transform: 'rotate(0deg)' },
